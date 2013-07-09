@@ -30,19 +30,23 @@ public class EnderBowListener implements Listener {
                 return;
             }
 
-            if (player.getInventory().contains(Material.ENDER_PEARL)) {
-                if (event.getBow().getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 2) {
+            if (event.getBow().getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 2 || event.getBow().getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 3) {
+                if (player.getInventory().contains(Material.ENDER_PEARL)) {
+                    if (event.getBow().getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 2) {
+                        event.setCancelled(true);
+                        player.getInventory().removeItem(new ItemStack(Material.ENDER_PEARL, 1));
+                        player.launchProjectile(EnderPearl.class).setVelocity(event.getProjectile().getVelocity().multiply(1.1));
+                        player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 1.0f, 1.0f);
+                    } else if (event.getBow().getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 3 ) {
+                        event.setCancelled(true);
+                        player.launchProjectile(EnderPearl.class).setVelocity(event.getProjectile().getVelocity().multiply(1.1));
+                        player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 1.0f, 1.0f);
+                    }
+                } else {
                     event.setCancelled(true);
-                    player.getInventory().removeItem(new ItemStack(Material.ENDER_PEARL, 1));
-                    player.launchProjectile(EnderPearl.class).setVelocity(event.getProjectile().getVelocity().multiply(1.1));
-                    player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 1.0f, 1.0f);
-                } else if (event.getBow().getEnchantmentLevel(Enchantment.ARROW_INFINITE) == 3 ) {
-                    event.setCancelled(true);
-                    player.launchProjectile(EnderPearl.class).setVelocity(event.getProjectile().getVelocity().multiply(1.1));
-                    player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 1.0f, 1.0f);
                 }
             } else {
-                event.setCancelled(true);
+                return;
             }
         }
     }
