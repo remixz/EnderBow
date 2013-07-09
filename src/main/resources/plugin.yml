@@ -1,0 +1,9 @@
+name: EnderBow
+main: me.zachbruggeman.enderbow.EnderBowPlugin
+version: ${project.version}
+author: Zach Bruggeman
+
+permissions:
+    enderbow.fire:
+        description: Allows you to fire an Ender Bow.
+        default: true
